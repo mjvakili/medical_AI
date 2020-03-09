@@ -1,4 +1,4 @@
-# Examples of applying AI to Medical imaging 
+# Examples of applying deep lerarning to medical imaging diagnosis 
 
 
 In this repository, we provide simple examples of how Convolutional Neural Networks can be used 
@@ -25,3 +25,43 @@ For a more thorough description of the data and modeling of the data with Convol
 [Janowczyk & Madabhushi 2016](https://www.ncbi.nlm.nih.gov/pubmed/27563488) and [Cruz-Roa etal 2014](https://www.ncbi.nlm.nih.gov/pubmed/27563488). 
 The data consists of image patches with 198738 negative example and 78786 positive examples.
 
+#### Visual inspection of the tissue images with positive and negative IDC test
+positive examples: 
+
+![](example_images/yes_IDC.png)
+
+negative examples:
+
+![](example_images/no_IDC.png)
+
+We note that one of the features that sets the cancereous and the healthy tissues apart is the presence 
+of clumps with a purple color in the positive examples.
+
+#### model perforemance
+
+The performance of the model is summarized in the following table:
+
+              precision    recall  f1-score   support
+
+      no IDC       0.95      0.92      0.93     19874
+         IDC       0.81      0.87      0.84      7879
+    accuracy                           0.91     27753
+    macro avg      0.88      0.90      0.89     27753
+    weighted avg   0.91      0.91      0.91     27753
+    
+The reported true positive rate for both cancerous and healthy tissue images are around 90 percent. 
+While the precision (1 - false positive rate) for the healthy tissue images is low, we note that the false positive rate 
+for the cancerous tissues is around 20 percents which means that around 20% of the tissue images identified as cancereous 
+are in fact healthy. We believe that this can be improved by a more careful threshold and hyper-parameter tuning.
+Note that we have introduced weights to account for the imbalanced representation of classes in the training data.
+    
+#### Feature maps in the convolutional layers
+
+Let's take a look at an example of a tissue with cancerous cells correcly predicted by our model as a positive case with 
+91 percent probability:
+
+![](example_images/conv_IDC.png)
+
+This is what the first convolutional layer picks up:
+
+![](example_images/CONV2D.png)
